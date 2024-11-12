@@ -1,0 +1,15 @@
+$ping google.com
+$netstat
+$netstat -tulpn
+$ifconfig
+$traceroute
+$tracepath
+$nslookup
+$telnet
+$ip address show
+$whois google.com
+$arp
+$curl
+$wget
+$iptables
+$route
