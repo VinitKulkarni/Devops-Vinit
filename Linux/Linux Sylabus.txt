@@ -1,1 +1,4 @@
-Arcitecture
+Arcitecture diagram
+how linux boots
+basic commands: 
+Command: 1.File System, 2.user managment, 3.process management, 4.memory management, 5.disk management
