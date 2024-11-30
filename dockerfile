@@ -1,40 +1,29 @@
-# Stage 1: Build the React application
+# Step 1: Use a Node image to build the React app
 FROM node:18 AS build
 
-# Set the working directory for the React app
+# Set the working directory inside the container
 WORKDIR /app
 
-# Install dependencies
+# Copy the package.json and package-lock.json to install dependencies
 COPY package.json package-lock.json ./
+
+# Install all dependencies
 RUN npm install
 
-# Copy the source code of the React app
+# Copy the entire React app source code to the container
 COPY . ./
 
-# Build the React application for production
+# Build the React app for production
 RUN npm run build
 
-# Stage 2: Set up Express server
-FROM node:18 AS production
+# Step 2: Serve the React app with a lightweight web server (Nginx)
+FROM nginx:alpine
 
-# Set the working directory for the Express server
-WORKDIR /app
+# Copy the build files from the build stage to the Nginx container
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Install dependencies for Express (backend)
-COPY package.json package-lock.json ./
-RUN npm install --production
+# Expose port 80 to access the React app in the browser
+EXPOSE 80
 
-# Copy the built React app and server code from the build stage
-COPY --from=build /app/build /app/build
-
-# Copy the Express server files
-COPY server.js ./  # Assume server.js is in the root directory of your project
-
-# Expose the port the app runs on
-EXPOSE 5000
-
-# Set the environment variable to production
-ENV NODE_ENV=production
-
-# Start the Express server that serves the React app
-CMD ["node", "server.js"]
+# Start Nginx to serve the React app
+CMD ["nginx", "-g", "daemon off;"]
