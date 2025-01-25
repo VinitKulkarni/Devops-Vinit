@@ -4,10 +4,13 @@ Shell scripting
 
 ### Operating System:
 Linux
-  1. User management
-  2. Process management
-  3. file management
-  4. networking
+  1. File System Management
+  2. Process Management
+  3. User Management
+  4. Memory Management
+  5. Disk Management
+  6. networking
+     
 
 
 ### Cloud Platform:
